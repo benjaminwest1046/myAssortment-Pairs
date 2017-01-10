@@ -1,0 +1,22 @@
+{
+  "name": "whos-with-who",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Benjamin West <benjaminwest1046@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.1",
+    "jquery": "^3.1.1",
+    "angular-ui-router": "^0.3.2"
+  }
+}
