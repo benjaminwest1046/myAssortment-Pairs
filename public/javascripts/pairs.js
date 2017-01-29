@@ -1,7 +1,7 @@
 angular.module('myApp')
-.component('pairgroup', {
+.component('pairs', {
   template: `
-  <h1>PairGroup Page</h1>
+  <h1>New Pairs</h1>
   `,
   controller: function(dataService, $state, $stateParams) {
     console.log('pairGroup is working')

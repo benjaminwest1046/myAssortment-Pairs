@@ -1,13 +1,75 @@
 
 body {
   color: black;
-  font-family: 'Source Sans Pro';
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
   font-size: 3em;
 }
 
+h2 {
+  display: inline-block;
+  margin-right: 25px;
+}
+
 li {
     list-style: none;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+.resiliency-label {
+  margin-left: 115px;
+}
+
+.pair-container {
+  width: 300px;
+  height: 500px;
+  border: 1px solid grey;
+  margin: auto;
+}
+
+label {
+  margin-right: 25px
+}
+
+.form-control {
+  width: 50%;
+  display: inline-block;
+}
+
+
+.no-outline {
+  border: 0px !important;
+}
+
+.table {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 100px;
+}
+
+.table td, .table th {
+  border-top: 0px;
+}
+
+.title {
+  text-align: center;
+}
+
+.actions {
+  background-color: white !important;
+}
+
+.resiliency-pair {
+  color: red;
+}
+
+.pairGroupAdd {
+  font-size: 1.75em;
 }

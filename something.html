@@ -1,0 +1,33 @@
+
+  <h1>My Assortment Pairs</h1>
+  <h2>View Pairs by Days</h2>
+  <table class="table table-bordered" ng-repeat="pairGroup in $ctrl.pairGroups">
+      <tr>
+        <th>Anchor</th>
+        <th>Developer</th>
+        <th>Third Developer</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="pair in pairGroup.pairs">
+        <td>{{ pair.anchor }}</td>
+        <td>{{ pair.developer }}</td>
+        <td>{{ pair.thirdDeveloper }}</td>
+        <td><span ng-click="$ctrl.sendPairGroup(pairGroup._links.pairGroup.href)">Add</span></td>
+        <td><<span ng-click="$ctrl.deletePair(pair._links.pair.href)"><i class="fa fa-trash-o" aria-hidden="true"></i></span></td>
+      </tr>
+  </table>
+
+
+
+
+
+  <ul>
+    <li ng-repeat="pairGroup in $ctrl.pairGroups">
+      <h2 ng-click="$ctrl.viewPairGroup(pairGroup)">{{pairGroup.date}}</h2>
+      <a data-remodal-target="modal" ng-click="$ctrl.sendPairGroup(pairGroup._links.pairGroup.href)">New Pair</a>
+      <ul>
+        <li ng-repeat="pair in pairGroup.pairs">Anchor: {{ pair.anchor }} | Developer: {{ pair.developer }}<span ng-click="$ctrl.deletePair(pair._links.pair.href)"><i class="fa fa-trash-o" aria-hidden="true"></i></span></li>
+        </ul>
+    </li>
+  </ul>

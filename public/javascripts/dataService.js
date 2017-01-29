@@ -16,6 +16,7 @@ angular.module('myApp')
     that.getPairGroups = function() {
       return $http.get("https://my-assortment-pair.cfapps.io/pairGroups").then(function(response) {
         var tempArray = response.data._embedded.pairGroups
+        tempArray.reverse();
         tempArray.forEach(function(p) {
           that.pairGroups.push(p);
         })
@@ -32,14 +33,21 @@ angular.module('myApp')
         return that.pairGroups;
       })
     }
-    // that.getPairs = function() {
-    //   return $http.get("https://my-assortment-pair.cfapps.io/pairs").then(function(response) {
-    //     var tempArray = response.data._embedded.pairs
-    //     tempArray.forEach(function(p) {
-    //       that.pairs.push(p);
-    //     })
-    //     return that.pairs
-    //   })
-    // }
 
+    that.createPair = function(pair) {
+      return $http.post("https://my-assortment-pair.cfapps.io/pairs", pair).then(function(response){
+      })
+    }
+
+    that.createPairGroup = function(pairGroup) {
+      return $http.post("https://my-assortment-pair.cfapps.io/pairGroups", pairGroup).then(function(res){
+        console.log(res);
+      })
+    }
+
+    that.deletePair = function(link) {
+      return $http.delete(link).then(function(){
+        console.log(link);
+      })
+    }
 });

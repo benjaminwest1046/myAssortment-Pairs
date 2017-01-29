@@ -8,8 +8,8 @@ angular.module('myApp')
     url: '/home',
     template: "<home><home>"
   })
-  .state('pairGroups', {
-    url: '/pairgroup/:id',
-    template: "<pairgroup><pairgroup>"
+  .state('pairs', {
+    url: '/pairs',
+    template: "<pairs><pairs>"
   })
 });
