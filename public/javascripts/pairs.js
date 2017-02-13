@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('pairsApp')
 .component('pairs', {
   template: `
   <h1>New Pairs</h1>

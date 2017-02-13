@@ -1,0 +1,12 @@
+{
+  "registry": {
+    "search": [
+      "https://bower.artifactory.homedepot.com/artifactory/api/bower/bower"
+    ]
+  },
+  "resolvers": [
+    "bower-art-resolver"
+  ]
+
+
+}

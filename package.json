@@ -3,15 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "angular": "^1.6.1",
+    "angular-mocks": "^1.6.1",
+    "angular-ui-router": "^0.4.2",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "^2.5.5",
     "express": "~4.14.0",
     "morgan": "~1.7.0",
+    "request": "^2.79.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "angular": "^1.6.1",
+    "angular-mocks": "^1.6.1",
+    "angular-ui-router": "^0.4.2",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0"
   }
 }
