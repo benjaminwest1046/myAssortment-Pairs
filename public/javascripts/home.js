@@ -6,6 +6,7 @@ angular.module('pairsApp')
       <h2>View Pairs by Days</h2>
       <span><i ng-click="createPairGroup()" class="pairGroupAdd fa fa-plus-circle" aria-hidden="true"></i></span>
     </div>
+    <button class="btn btn-success" ng-click="slack()">Slack</button>
   <div class="createModal" ng-show="showModal">
   <i class="fa fa-times-circle" ng-click="changeModal()" aria-hidden="true"></i>
    <div class="edit-container">
@@ -65,7 +66,7 @@ angular.module('pairsApp')
 
 
   `,
-        controller: function ($scope, dataService) {
+        controller: function ($scope, dataService, $http) {
             $scope.showModal = false;
 
             dataService.getDevelopers().then(function (response) {
@@ -135,6 +136,12 @@ angular.module('pairsApp')
                 dataService.createPairGroup(pairGroup).then(function () {
                     dataService.getPairGroups();
                 })
+            }
+
+            $scope.slack = function() {
+               return $http.get('http://localhost:3000/slack').then(function(response){
+                    console.log('home get')
+                });
             }
 
         }

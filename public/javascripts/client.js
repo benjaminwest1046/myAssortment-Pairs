@@ -1,4 +1,4 @@
-angular.module('pairsApp', ['ui.router', 'angularModalService']);
+angular.module('pairsApp', ['ui.router', 'ngResource']);
 
 angular.module('pairsApp')
     .config(function ($stateProvider, $urlRouterProvider) {
