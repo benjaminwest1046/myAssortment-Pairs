@@ -62,7 +62,7 @@ angular.module('pairsApp')
           </td>
         </tr>
     </table>
-  
+
 
 
   `,
@@ -137,10 +137,11 @@ angular.module('pairsApp')
                     dataService.getPairGroups();
                 })
             }
-
+            var thing = {
+              text :'Its working now motha fuckas!!!!!!!!!'
+            }
             $scope.slack = function() {
-               return $http.get('http://localhost:3000/slack').then(function(response){
-                    console.log('home get')
+               return $http.post('/slack', thing).then(function(response){
                 });
             }
 
