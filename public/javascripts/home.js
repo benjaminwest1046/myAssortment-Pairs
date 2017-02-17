@@ -6,7 +6,6 @@ angular.module('pairsApp')
       <h2>View Pairs by Days</h2>
       <span><i ng-click="createPairGroup()" class="pairGroupAdd fa fa-plus-circle" aria-hidden="true"></i></span>
     </div>
-    <button class="btn btn-success" ng-click="slack()">Slack</button>
   <div class="createModal" ng-show="showModal">
   <i class="fa fa-times-circle" ng-click="changeModal()" aria-hidden="true"></i>
    <div class="edit-container">
@@ -68,7 +67,7 @@ angular.module('pairsApp')
   `,
         controller: function ($scope, dataService, $http) {
             $scope.showModal = false;
-
+            $scope.pair = {};
             dataService.getDevelopers().then(function (response) {
                 $scope.developers = response;
                 $scope.pair = {
@@ -91,26 +90,32 @@ angular.module('pairsApp')
 
 
             $scope.sendPairGroup = function (pg) {
-                $scope.changeModal();
                 $scope.pair.pairGroup = pg;
+                $scope.changeModal();
             };
+
 
             $scope.newPair = function () {
                 dataService.createPair($scope.pair).then(function (response) {
-                    $scope.pair = {
-                        anchor: $scope.developers[0],
-                        developer: $scope.developers[0],
-                        thirdDeveloper: '',
-                        date: '.',
-                        pairGroup: $scope.pair.pairGroup
+                  console.log(response);
+                  if ($scope.pair.isResilience) {
+                    $scope.slack($scope.pair)
+                  }
+                  console.log('is it going in here')
+                  $scope.pair = {
+                      anchor: $scope.developers[0],
+                      developer: $scope.developers[0],
+                      thirdDeveloper: '',
+                      date: '.',
+                      pairGroup: $scope.pair.pairGroup
                     }
-                }).then(function () {
+              }).then(function () {
                     dataService.getPairGroups();
+
                 })
             };
 
             $scope.deletePair = function (pair) {
-                console.log(pair);
                 dataService.deletePair(pair)
             };
 
@@ -137,11 +142,9 @@ angular.module('pairsApp')
                     dataService.getPairGroups();
                 })
             }
-            var thing = {
-              text :'Its working now motha fuckas!!!!!!!!!'
-            }
-            $scope.slack = function() {
-               return $http.post('/slack', thing).then(function(response){
+
+            $scope.slack = function(pair) {
+               return $http.post('/slack', pair).then(function(response){
                 });
             }
 

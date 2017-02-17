@@ -6,8 +6,9 @@ angular.module('pairsApp')
     dataService.pairGroups = [];
     dataService.pairs = [];
 
+    //DONE
     dataService.getDevelopers = function() {
-      return $http.get(url + 'developers').then(function(response) {
+      return $http.get('pairs/developers').then(function(response) {
         var tempArray = response.data._embedded.developers;
         tempArray.forEach(function(d) {
             dataService.developers.push(d.name);
@@ -16,6 +17,7 @@ angular.module('pairsApp')
       })
     };
 
+    //TODO
     dataService.getPairGroups = function() {
         dataService.pairGroups.length = 0;
       return $http.get(url + "pairGroups").then(function(response) {
@@ -38,21 +40,29 @@ angular.module('pairsApp')
       })
     };
 
+    //DONE
     dataService.createPair = function(pair) {
-      return $http.post(url + "pairs", pair).then(function(response){
-
+      return $http.post("/pairs/new", pair).then(function(response){
+        console.log(response);
       })
     };
 
+    //DONE
     dataService.createPairGroup = function(pairGroup) {
-      return $http.post(url + "pairGroups", pairGroup).then(function(res){
+      return $http.post("pairs/groups", pairGroup).then(function(res){
         console.log(res);
       })
     };
 
+    //Done
     dataService.deletePair = function(link) {
-      return $http.delete(link).then(function(){
+      var linkObject = {
+        'href': link
+      }
+      return $http.post('pairs/delete', linkObject).then(function(){
         console.log(link);
+      }).then(function(){
+        dataService.getPairGroups();
       })
     }
 });

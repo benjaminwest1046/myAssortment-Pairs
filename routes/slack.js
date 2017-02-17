@@ -4,19 +4,15 @@ var Slack = require('slack-node');
 
 
 router.post('/', function(req, res, next) {
-    console.log('----------------------HERE-------------------')
-    console.log(req.body.text);
 
-    webhookUri = "https://hooks.slack.com/services/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";
+    webhookUri = "123321https://hooks.slack.com/services/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";
 
     slack = new Slack();
     slack.setWebhook(webhookUri);
 
     slack.webhook({
-        channel: "#general",
-        username: "CUPID ROBOT",
-        icon_emoji: ":cupid:",
-        text: req.body.text
+        username: "AM Pair App Bot",
+        text: "Today's resilliency pair is " + req.body.anchor + " & " + req.body.developer
     }, function(err, response) {
         console.log(response);
     // });
