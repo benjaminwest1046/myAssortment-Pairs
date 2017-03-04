@@ -20,7 +20,7 @@ angular.module('pairsApp')
     //TODO
     dataService.getPairGroups = function() {
         dataService.pairGroups.length = 0;
-      return $http.get(url + "pairGroups").then(function(response) {
+      return $http.get("pairs/pairGroups").then(function(response) {
         var tempArray = response.data._embedded.pairGroups;
         tempArray.reverse();
         tempArray.forEach(function(p) {
@@ -42,7 +42,7 @@ angular.module('pairsApp')
 
     //DONE
     dataService.createPair = function(pair) {
-      return $http.post("/pairs/new", pair).then(function(response){
+      return $http.post("pairs/new", pair).then(function(response){
         console.log(response);
       })
     };

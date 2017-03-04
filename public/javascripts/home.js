@@ -1,71 +1,89 @@
 angular.module('pairsApp')
     .component('home', {
         template: `
-    <div class="heading">
-      <h1 class="header">My Assortment Pairs</h1>
-      <h2>View Pairs by Days</h2>
-      <span><i ng-click="createPairGroup()" class="pairGroupAdd fa fa-plus-circle" aria-hidden="true"></i></span>
-    </div>
-  <div class="createModal" ng-show="showModal">
-  <i class="fa fa-times-circle" ng-click="changeModal()" aria-hidden="true"></i>
-   <div class="edit-container">
-    <h3>Create a New Pair</h3><br>
+        <div class="heading">
+          <h1 class="">Assortment Pairs</h1>
+          <h2 id="pairGroupAdd-header">Create New Day</h2><span><i ng-click="createPairGroup()" class="pairGroupAdd icon_plus_circle_outline
+e9d1" aria-hidden="true"></i></span>
+        </div>
+        <div class="createModal card dialog" ng-show="showModal">
+          <div class="card-toolbar">
+            <span class="card-title"><h3>Create New Pair</h3></span>
+            <i class="icon_close" ng-click="changeModal()" aria-hidden="true"></i>
+          </div>
+          <div class="card-content">
+          <form ng-submit="newPair()" ng-show="showModal">
 
-    <form ng-submit="newPair()" ng-show="showModal">
+          <fieldset>
+            <div class="select-container">
+              <select class="" name="anchor" id="anchor" ng-model="pair.anchor" title="First Developer">
+               <option value="" disabled selected hidden>First Developer</option>
+               <option ng-repeat="developer in developers" value="{{ developer }}">{{developer}}</option>
+              </select>
+              <label for="anchor">First Developer</label>
+            </div>
+          </fieldset>
 
-      <div class="form-group">
-        <select class="form-control" name="anchor" id="anchor" ng-model="pair.anchor" required>
-          <option ng-repeat="developer in developers" value="{{ developer }}">{{developer}}</option>
-        </select>
-      </div>
+          <fieldset>
+          <div class="select-container">
+            <select class="" name="developer" id="developer" ng-model="pair.developer" title="Second Developer">
+              <option ng-repeat="developer in developers track by developer" value="{{ developer }}">{{developer}}</option>
+            </select>
+            <label for="developer">Second Developer</label>
+          </div>
+          </fieldset>
 
-      <div class="form-group">
-        <select class="form-control" name="developer" id="developer" ng-model="pair.developer" required>
-          <option ng-repeat="developer in developers track by developer" value="{{ developer }}">{{developer}}</option>
-        </select>
-      </div>
+          <fieldset>
+            <div class="select-container">
+              <select class="" name="thirdDeveloper" id="thirdDeveloper" ng-model="pair.thirdDeveloper" title="Third Developer">
+                <option ng-repeat="developer in developers track by developer" value="{{ developer }}">{{developer}}</option>
+              </select>
+              <label for="thirdDeveloper">Additional Developer</label>
+            </div>
+          </fieldset>
 
-      <div class="form-group">
-        <select class="form-control" name="thirdDeveloper" id="thirdDeveloper" ng-model="pair.thirdDeveloper">
-          <option ng-repeat="developer in developers track by developer" value="{{ developer }}">{{developer}}</option>
-        </select>
-      </div>
+          <fieldset>
+            <div class="checkbox-container">
+              <input checked type="checkbox"
+                     name="resiliency"
+                     ng-model="pair.isResilience"
+                     value="checkbox1">
+              <label for="checkbox1"><span><span></span></span>Set Pair As Resilliency</label>
+           </div>
+          </fieldset>
 
-      <div class="form-group">
-        <label class="resiliency-label">Resilliency? </label>
-        <input type="checkbox"
-               class="form-control"
-               name="resiliency"
-               ng-model="pair.isResilience">
-      </div>
+          <div class="card-actions right">
+            <button type="submit"  id="submitButton" class="button primary">Create Pair</button>
+            <span id="cancelButton" class="button secondary" ng-click="changeModal()">Cancel</span>
+          </div>
+        </form>
+        </div>
+        </div>
 
-      <button type="submit"  id="submitButton" class="btn btn-success">Submit</i></button>
-    </form>
-  </div>
-</div>
+        <table class="table table-striped" ng-repeat="pairGroup in pairGroups">
+            <tr><th colspan="3" class="title"><h2> {{ pairGroup.date }} </h2></th></tr>
+            <tr>
+              <th class="anchor">Anchor</th>
+              <th class="developer">Developer</th>
+              <th class="thirdDeveloper">Third Developer <i class="icon_plus_circle_outline
+e9d1 pairAdd"  ng-click="sendPairGroup(pairGroup._links.pairGroup.href)" aria-hidden="true"></i></th>
+              <th></th>
+            </tr>
+            <tr ng-repeat="pair in pairGroup.pairs" ng-class="{ 'resiliency-pair': pair.isResilience }">
+              <td>{{ pair.anchor }}</td>
+              <td>{{ pair.developer }}</td>
+              <td>{{ pair.thirdDeveloper }}<span ng-click="deletePair(pair._links.pair.href)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+</td>
 
-    <table class="table table-striped" ng-repeat="pairGroup in pairGroups">
-        <tr><th colspan="3" class="title"><h3> {{ pairGroup.date }} </h3></th></tr>
-        <tr>
-          <th class="anchor">Anchor</th>
-          <th class="developer">Developer</th>
-          <th class="thirdDeveloper">Third Developer</th>
-          <th><i class="fa fa-plus-circle pairAdd"  ng-click="sendPairGroup(pairGroup._links.pairGroup.href)" aria-hidden="true"></i></th>
-        </tr>
-        <tr ng-repeat="pair in pairGroup.pairs" ng-class="{ 'resiliency-pair': pair.isResilience }">
-          <td>{{ pair.anchor }}</td>
-          <td>{{ pair.developer }}</td>
-          <td>{{ pair.thirdDeveloper }}</td>
-          <td class="actions">
-          <span ng-click="deletePair(pair._links.pair.href)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-          </td>
-        </tr>
-    </table>
+            </tr>
+        </table>
+
 
 
 
   `,
         controller: function ($scope, dataService, $http) {
+            var currentDate;
             $scope.showModal = false;
             $scope.pair = {};
             dataService.getDevelopers().then(function (response) {
@@ -86,6 +104,8 @@ angular.module('pairsApp')
 
             dataService.getPairGroups().then(function (response) {
                 $scope.pairGroups = response;
+                currentDate = $scope.pairGroups[0].date;
+                console.log(currentDate);
             });
 
 
@@ -134,13 +154,14 @@ angular.module('pairsApp')
             }
 
             $scope.createPairGroup = function () {
-                console.log("calling this for real");
+                if ($scope.getDate() != currentDate){
                 var pairGroup = {
                     date: $scope.getDate()
                 }
                 dataService.createPairGroup(pairGroup).then(function () {
                     dataService.getPairGroups();
-                })
+                });
+                }
             }
 
             $scope.slack = function(pair) {

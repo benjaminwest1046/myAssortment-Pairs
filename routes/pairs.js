@@ -54,7 +54,7 @@ router.post('/delete', function(req, res, next){
 
 //GET PAIRGROUPS
 router.get('/pairGroups', function(req, res, next) {
-  request.get(url + 'developers', function (err, remoteResponse, remoteBody) {
+  request.get(url + 'pairGroups', function (err, remoteResponse, remoteBody) {
     if (err) {
         error(method, action, remoteResponse, err);
         return res.status(500).end('Error getting developers');
@@ -72,7 +72,7 @@ router.post('/groups', function(req, res, next){
       { json: req.body},
       function (error, response, body) {
           if (!error && response.statusCode == 200) {
-              console.log('Undefined',body)
+              console.log(body)
           }
           res.write(content);
           res.end();
