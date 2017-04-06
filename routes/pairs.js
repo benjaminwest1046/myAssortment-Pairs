@@ -6,7 +6,7 @@ var request = require('request');
 var querystring = require('querystring');
 
 
-var url = 'https://my-assortment-pair.cfapps.io/';
+var url = 'https://pairapi.apps-np.homedepot.com/';
 
 function cleanHeaders(requestHeaders) {
     delete requestHeaders.host;

@@ -1,7 +1,7 @@
 angular.module('pairsApp')
 .service('dataService', function($http) {
     var dataService = this,
-        url = "https://my-assortment-pair.cfapps.io/";
+        url = "https://pairapi.apps-np.homedepot.com/";
     dataService.developers = [];
     dataService.pairGroups = [];
     dataService.pairs = [];
